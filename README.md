@@ -8,11 +8,14 @@ Spot an error? Find a place which can be improved? Or your favorite application 
 
 ```sh
 brew tap akinokaede/kuchikamizake
+brew trust --tap akinokaede/kuchikamizake
 brew install <formula>
 brew install --cask <cask>
 
 # Or just
+brew trust --formula akinokaede/kuchikamizake/<formula>
 brew install akinokaede/kuchikamizake/<formula>
+brew trust --cask akinokaede/kuchikamizake/<cask>
 brew install --cask akinokaede/kuchikamizake/<cask>
 ```
 
