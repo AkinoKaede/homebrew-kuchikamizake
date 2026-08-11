@@ -11,6 +11,14 @@ class PinentryMacSwift < Formula
     skip "Pinned to a commit temporarily"
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/akinokaede/kuchikamizake"
+    rebuild 1
+    sha256 cellar: :any, arm64_tahoe:   "2dcfb64edee7f1ff4c84b171230e0c55f36cfffa81a68b741a564e389bb54e9b"
+    sha256 cellar: :any, arm64_sequoia: "815fbf5c7cd61e0f6fd63d86357d5eeb5ebe0d997a6b0d8a9a020b4926326049"
+    sha256 cellar: :any, arm64_sonoma:  "40b5ee83c9c6f86b5569e5e13e874d38a47adc8b2cb1382430f75a827eba3c8e"
+  end
+
   depends_on xcode: :build
   depends_on "libassuan"
   depends_on "libgpg-error"
