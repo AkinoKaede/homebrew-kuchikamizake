@@ -1,20 +1,115 @@
-name: Test tap
+name: brew test-bot
 
 on:
   push:
     branches: [main]
   pull_request:
 
-permissions:
-  contents: read
+permissions: {}
+
+defaults:
+  run:
+    shell: bash -xeuo pipefail {0}
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  test:
-    runs-on: macos-latest
+  tap-syntax:
+    name: Check tap syntax
+    runs-on: macos-26
+    permissions:
+      actions: read
+      contents: read
 
     steps:
       - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@2026.07.10.1
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@2026.08.03.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check tap syntax
+      - name: Cache Homebrew Bundler RubyGems
+        uses: actions/cache@v6.1.0
+        with:
+          path: ${{ steps.set-up-homebrew.outputs.gems-path }}
+          key: macos-26-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
+          restore-keys: macos-26-rubygems-
+
+      - name: Clean up before testing
+        run: brew test-bot --only-cleanup-before
+
+      - name: Set up test environment
+        run: brew test-bot --only-setup
+
+      - name: Run tap syntax checks
         run: brew test-bot --only-tap-syntax
+
+  bottles:
+    name: Build and test (${{ matrix.bottle_tag }})
+    if: github.event_name == 'pull_request'
+    needs: tap-syntax
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14
+            bottle_tag: arm64_sonoma
+          - os: macos-15
+            bottle_tag: arm64_sequoia
+          - os: macos-15-intel
+            bottle_tag: sequoia
+          - os: macos-26
+            bottle_tag: arm64_tahoe
+          - os: macos-26-intel
+            bottle_tag: tahoe
+
+    runs-on: ${{ matrix.os }}
+    permissions:
+      actions: read
+      checks: read
+      contents: read
+      packages: read
+      pull-requests: read
+
+    steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@2026.08.03.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cache Homebrew Bundler RubyGems
+        uses: actions/cache@v6.1.0
+        with:
+          path: ${{ steps.set-up-homebrew.outputs.gems-path }}
+          key: ${{ matrix.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
+          restore-keys: ${{ matrix.os }}-rubygems-
+
+      - name: Clean up before testing
+        run: brew test-bot --only-cleanup-before
+
+      - name: Set up test environment
+        run: brew test-bot --only-setup
+
+      - name: Base64-encode GITHUB_TOKEN for HOMEBREW_DOCKER_REGISTRY_TOKEN
+        id: base64-encode
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          base64_token=$(echo -n "${TOKEN}" | base64 | tr -d "\n")
+          echo "::add-mask::${base64_token}"
+          echo "token=${base64_token}" >> "${GITHUB_OUTPUT}"
+
+      - name: Build and test formulae
+        env:
+          HOMEBREW_DOCKER_REGISTRY_TOKEN: ${{ steps.base64-encode.outputs.token }}
+        run: brew test-bot --only-formulae --root-url=https://ghcr.io/v2/akinokaede/kuchikamizake
+
+      - name: Upload bottles as artifact
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: bottles_${{ matrix.bottle_tag }}
+          path: '*.bottle.*'
