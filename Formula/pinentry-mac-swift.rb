@@ -7,6 +7,10 @@ class PinentryMacSwift < Formula
   license all_of: ["GPL-2.0-or-later", "GPL-3.0-or-later"]
   head "https://github.com/Stapxs/pinentry-mac-swift.git", branch: "main"
 
+  livecheck do
+    skip "Pinned to a commit temporarily"
+  end
+
   depends_on xcode: :build
   depends_on "libassuan"
   depends_on "libgpg-error"
