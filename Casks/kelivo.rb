@@ -2,8 +2,7 @@ cask "kelivo" do
   version "1.2.5,72"
   sha256 "36242514985ae1fc885f510004d92d0337b80ccf059c1dcfe5eac3a571687512"
 
-  url "https://github.com/Chevey339/kelivo/releases/download/v#{version.csv.first}/Kelivo_macos_#{version.csv.first}%2B#{version.csv.second}.dmg",
-      verified: "github.com/Chevey339/kelivo/"
+  url "https://github.com/Chevey339/kelivo/releases/download/v#{version.csv.first}/Kelivo_macos_#{version.csv.first}%2B#{version.csv.second}.dmg"
   name "Kelivo"
   desc "Multi-platform, multi-provider LLM chat client"
   homepage "https://kelivo.psycheas.top/"
