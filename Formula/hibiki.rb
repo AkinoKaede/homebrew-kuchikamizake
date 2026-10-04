@@ -1,8 +1,8 @@
 class Hibiki < Formula
   desc "Share OpenPGP cards and PIN entry across devices"
   homepage "https://github.com/AkinoKaede/hibiki"
-  url "https://github.com/AkinoKaede/hibiki/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "77a39d045193e1c1e6ecc20b8c269648311618e3a0313899d423da9f4ba881c2"
+  url "https://github.com/AkinoKaede/hibiki/archive/refs/tags/v0.1.1.tar.gz"
+  sha256 "09c4c934fff0cb51ee8cdb8210b9ad29633bb298dfa21aeab07a377bc7db95fd"
   # Upstream does not currently declare a license.
   license :cannot_represent
   head "https://github.com/AkinoKaede/hibiki.git", branch: "main"
