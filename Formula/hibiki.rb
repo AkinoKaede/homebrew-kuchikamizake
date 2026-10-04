@@ -7,6 +7,12 @@ class Hibiki < Formula
   license :cannot_represent
   head "https://github.com/AkinoKaede/hibiki.git", branch: "main"
 
+  bottle do
+    root_url "https://ghcr.io/v2/akinokaede/kuchikamizake"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "880b07c757048d5a3b776ac280171c404eefd52c4bd3d9a305a8523f3e3d935c"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "88f96fb113a1b26658e4cd38be30a7b7f5c74bcec7fbb7371662597e839713ec"
+  end
+
   depends_on "rust" => :build
   depends_on "gnupg"
 
