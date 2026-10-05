@@ -1,8 +1,8 @@
 class HibikiServer < Formula
   desc "Relay for end-to-end encrypted Hibiki OpenPGP operations"
   homepage "https://github.com/AkinoKaede/hibiki"
-  url "https://github.com/AkinoKaede/hibiki/archive/refs/tags/v0.4.2.tar.gz"
-  sha256 "251bc56c87f719d6693e8a33fafe22d9e22021502373f707ad8b02e3bd622a30"
+  url "https://github.com/AkinoKaede/hibiki/archive/refs/tags/v0.5.0.tar.gz"
+  sha256 "9aa965aa768555ea98314b3d2e3f81e892461f20dee4a616f4505dda7b4e27fa"
   # Upstream does not currently declare a license.
   license :cannot_represent
   head "https://github.com/AkinoKaede/hibiki.git", branch: "main"
