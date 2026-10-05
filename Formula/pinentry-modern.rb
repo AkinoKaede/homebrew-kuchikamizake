@@ -11,6 +11,13 @@ class PinentryModern < Formula
     strategy :git
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/akinokaede/kuchikamizake"
+    sha256 cellar: :any, arm64_golden_gate: "df6604c4f0fa307d9a379681c2cc225ccb32bce7747211e3c7f2a7332ac7537a"
+    sha256 cellar: :any, arm64_tahoe:       "215f39ba0ab187ca567b3011f16d7c0ec388744f7875241c48578cdd1290f364"
+    sha256 cellar: :any, arm64_sequoia:     "8a8faa8bc12d54aa0c2fe58115ddd8e2da87834f474b7bebc1a620b2cec4212f"
+  end
+
   depends_on xcode: :build
   depends_on "libassuan"
   depends_on "libgpg-error"
