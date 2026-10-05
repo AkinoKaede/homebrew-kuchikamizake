@@ -64,6 +64,8 @@ jobs:
             bottle_tag: arm64_tahoe
           - os: macos-26-intel
             bottle_tag: tahoe
+          - os: xcode-27
+            bottle_tag: arm64_golden_gate
 
     runs-on: ${{ matrix.os }}
     permissions:
