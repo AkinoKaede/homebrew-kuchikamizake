@@ -9,8 +9,8 @@ class HibikiServer < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/akinokaede/kuchikamizake"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "564076d80982716548b91b8f06761b4e8c413fee422c54a541b771a8b5b92f88"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a862f82dfb454a04c9021cecff29f37cd92c97457a16f9ed9aa7d3ceff739589"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "3b73ed172d8b4a8c55626a661bb86388b2b7d01ff62defc767109b84b92c31b4"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f73a085961b75961d7be83c4d1877891398b4f1386486f2f0c7d062d1391d59a"
   end
 
   depends_on "rust" => :build
