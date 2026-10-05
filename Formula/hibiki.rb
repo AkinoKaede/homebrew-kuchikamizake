@@ -13,10 +13,15 @@ class Hibiki < Formula
     sha256 cellar: :any_skip_relocation, arm64_sequoia: "88f96fb113a1b26658e4cd38be30a7b7f5c74bcec7fbb7371662597e839713ec"
   end
 
+  depends_on "python@3.14" => :build
   depends_on "rust" => :build
   depends_on "gnupg"
 
   def install
+    # Release versions are applied by upstream CI, not stored in the tagged manifest.
+    unless build.head?
+      system formula_opt_bin("python@3.14")/"python3.14", "scripts/set-version.py", version.to_s
+    end
     system "cargo", "install", *std_cargo_args(path: "client")
     pkgshare.install "examples/client.toml"
   end
