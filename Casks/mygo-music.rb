@@ -1,9 +1,9 @@
 cask "mygo-music" do
   arch arm: "arm64", intel: "amd64"
 
-  version "0.1.8"
-  sha256 arm:   "632c3369e3a254e5518e4d902754cb104dbbc8142ecd331122c18ea781bfdbf3",
-         intel: "ee4a6557dfef66aaef067121141ddac982f523c11a19b005ae246c6ef0e1668c"
+  version "0.1.9"
+  sha256 arm:   "138ed8f5354ead5cc708d2c0a723fb1a2369883faf9758c8aa6e24a80288e3ec",
+         intel: "cea7628ff1bb21d66683d0a0ad99498ce15aa62e6e77b1d90fda198b00ee21f1"
 
   url "https://github.com/egoist/mygo-music/releases/download/v#{version}/mygo-music-#{version}-#{arch}.dmg"
   name "MyGo Music"
